@@ -1,0 +1,211 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+/* Gradient Background */
+.gradient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #43003f, #25c3fc, #2d005d);
+    background-size: 200% 200%;
+    z-index: -1;
+    animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Chat Container */
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+/* Chat Header */
+.chat-header {
+        padding: 20px;
+        color: #fff;
+        text-align: center;
+        border: 5px solid rgb(255, 255, 255); /* Subtle white border */
+        border-radius: 10px; /* Optional: for rounded corners */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(0, 0, 0, 0.389);
+    }
+
+.chat-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chat-subtitle {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Chat Messages */
+.chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.389);
+    border: 2px solid rgb(255, 255, 255); /* Subtle white border */
+    border-top-left-radius: 10px;  /* Rounded top-left corner */
+    border-top-right-radius: 10px; /* Rounded top-right corner */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-family: 'Century Gothic', sans-serif; /* Use Poppins for a clean look */
+    font-weight: 500; /* Adjust weight for better readability */
+    letter-spacing: 0.5px; /* Slightly increase letter spacing */
+    animation: fadeIn 0.5s ease;
+}
+
+
+.user {
+    background-color: rgba(0, 123, 255, 0.9);
+    color: #fff;
+    align-self: flex-end;
+    padding: 12px 18px;
+    border-radius: 15px 15px 0 15px; /* Rounded corners */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 16px;
+}
+
+.bot {
+    background-color: #f1f1f1; /* Softer background for the bot */
+    color: #333;
+    align-self: flex-start;
+    padding: 12px 18px;
+    border-radius: 15px 15px 15px 0; /* Rounded corners */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 16px;
+}
+
+
+.message-content {
+    word-wrap: break-word;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Chat Input */
+.chat-input-container {
+    display: flex;
+    align-items: center; /* Align items properly */
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    border-top: 1px solid rgba(221, 221, 221, 0.5);
+    backdrop-filter: blur(50px); /* Adds a subtle blur effect */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Soft top shadow */
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid rgba(221, 221, 221, 0.5);
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    background-color: rgba(249, 249, 249, 0.9);
+    transition: border-color 0.3s ease;
+}
+
+#user-input:focus {
+    border-color: #007bff;
+}
+#send-btn {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: rgb(0, 174, 255);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Animation - Slight Bounce */
+#send-btn:hover {
+    background-color: rgba(0, 128, 255, 0.217);
+    transform: scale(1.05);
+}
+
+/* Click Animation - Scale Down */
+#send-btn:active {
+    transform: scale(0.95);
+}
+
+/* Ripple Effect on Click */
+#send-btn::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgb(255, 254, 254);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+#send-btn:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+
