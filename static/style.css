@@ -145,7 +145,7 @@ body {
     background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
     border-top: 1px solid rgba(221, 221, 221, 0.5);
     backdrop-filter: blur(50px); /* Adds a subtle blur effect */
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Soft top shadow */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.55);
     border-radius: 0 0 10px 10px; /* Rounded bottom corners */
 }
 
@@ -170,6 +170,7 @@ body {
     color: #ffffff;
     border: none;
     border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.224);
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease, transform 0.2s ease;

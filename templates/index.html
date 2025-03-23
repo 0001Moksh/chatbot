@@ -8,29 +8,105 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Gradient Background -->
-    <div class="gradient-background"></div>
+<!-- Gradient Background -->
+<div class="gradient-background"></div>
 
-    <!-- Chat Container -->
-    <div class="chat-container">
-        <!-- Chat Header -->
-        <div class="chat-header">
-            <div class="chat-title">Deva</div>
-            <div class="chat-subtitle">Your AI Assistant</div>
-        </div>
-
-        <!-- Chat Messages -->
-        <div id="chat-box" class="chat-box">
-            <!-- Messages will be dynamically added here -->
-        </div>
-
-        <!-- Chat Input -->
-        <div class="chat-input-container">
-            <input type="text" id="user-input" placeholder="Write something awesome...">
-            <button id="send-btn">Send</button>
-        </div>
+<!-- Chat Container -->
+<div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <div class="chat-title">Deva</div>
+        <div class="chat-subtitle">Your AI Assistant</div>
     </div>
 
+    <!-- Chat Messages -->
+    <div id="chat-box" class="chat-box">
+        <!-- Messages will be dynamically added here -->
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-input-container">
+        <input type="text" id="user-input" placeholder="Write something awesome...">
+        <button id="send-btn">Send</button>
+    </div>
+
+<!-- Portfolio Link Section -->
+<div class="portfolio-section">
+    <a href="https://mokshbhardwaj.netlify.app/" target="_blank" class="portfolio-link btn-animated">Visit My Portfolio</a>
+</div>
+
+<!-- Styles -->
+<style>
+    .portfolio-section {
+        text-align: center;
+        margin: 15px auto;
+        padding: 20px;
+        background: linear-gradient(135deg,rgb(240, 104, 255),rgba(32, 58, 67, 0.29),rgb(0, 179, 255));
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.95);
+        width: 100%;
+        max-width: 700px;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .portfolio-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 12px 25px;
+        background: linear-gradient(45deg,rgba(32, 236, 255, 0.66),rgba(230, 71, 255, 0.62));
+        border-radius: 10px;
+        display: inline-block;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.55);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .portfolio-link::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300%;
+        height: 300%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .portfolio-link:hover::before {
+        width: 0;
+        height: 0;
+    }
+
+    .portfolio-link:hover {
+        background: linear-gradient(45deg,rgb(71, 243, 255),rgb(235, 107, 255));
+        transform: scale(1.08);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    @media screen and (max-width: 600px) {
+        .portfolio-section {
+            width: 95%;
+            padding: 15px;
+        }
+        .portfolio-link {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+    <!-- Scripts -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const userInput = document.getElementById('user-input');
