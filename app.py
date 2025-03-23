@@ -1,16 +1,21 @@
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 from dotenv import dotenv_values
+import os
+# Initialize Flask app
+app = Flask(__name__)
 
 # Load environment variables
 config = dotenv_values(".env")
-gemini_api = config.get('gemini_api')
+# gemini_api = config.get('gemini_api')
+
+
+# Load the environment variable
+app.config['GEMINI_API'] = os.getenv('GEMINI_API', 'default_api_key')
 
 # Configure Gemini API
-genai.configure(api_key=gemini_api)
+genai.configure(api_key=app.config['GEMINI_API'])
 
-# Initialize Flask app
-app = Flask(__name__)
 
 # Global variable to store chat history
 chat_history = []
