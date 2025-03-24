@@ -15,6 +15,7 @@ app.config['GEMINI_API'] = os.getenv('GEMINI_API', 'default_api_key')
 
 # Configure Gemini API
 genai.configure(api_key=app.config['GEMINI_API'])
+# genai.configure(api_key="AIzaSyDBiMuUtYvPI2WuDqF1NqdOgd8EtRr72So")
 
 
 # Global variable to store chat history
@@ -22,7 +23,7 @@ chat_history = []
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('ui.html')
 
 @app.route('/chat', methods=['POST'])
 def chat():

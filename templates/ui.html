@@ -1,50 +1,321 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">ChatBot</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Chat Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        body {
+            background: url('https://static.vecteezy.com/system/resources/previews/027/742/660/original/online-robot-chatbot-head-icon-style-illustration-on-dark-blue-background-vector.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
 
-    <!-- Chat Container -->
-    <div class="chat-container">
-        <div id="chat-box"></div>
-        <div class="input-container">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button id="send-btn">Send</button>
+        .neon-text {
+            color:#93d0ef;
+            font-size:  1rem;
+            animation: neonGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0px 3px 5px  #93d0ef; /* Bottom-only shadow */
+            font-size: 24px; /* Adjust as needed */
+            font-weight: bold;
+            color: #fff; /* Assuming a neon effect */
+        }
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px #93d0ef, 0 0 10px #93d0ef, 0 0 20px #93d0ef, 0 0 40px #93d0ef;
+            }
+            to {
+                text-shadow: 0 0 20px #93d0ef, 0 0 30px #93d0ef, 0 0 40px #93d0ef, 0 0 50px #93d0ef;
+            }
+        }
+        .neon-border {
+            border: 2px solid #93d0ef;
+            box-shadow: 0 0 5px #93d0ef, 0 0 10px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0), 0 0 40px rgb(0, 0, 0);
+        }
+        .neon-button {
+            background-color: #93d0ef;
+            box-shadow: 0 0 5px rgb(14, 17, 18), 0 0 10px #93d0ef, 0 0 20px rgb(0, 0, 0), 0 0 40px rgb(0, 0, 0);
+            transition: transform 0.2s;
+        }
+        .neon-button:hover {
+            transform: scale(1.1);
+        }
+        .card-shadow {
+            box-shadow: 0 50px 80px #070909, 0 0px 100px rgba(0, 217, 255, 0.3);
+            border: 2px solid white;
+        }
+        .input-shadow {
+            box-shadow: 0 -15px 100px rgba(0, 0, 0, 0.44), 0 -10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .portfolio-link {
+            color: #93d0ef;
+            text-shadow: 0 0 5px #93d0ef, 0 0 10px #93d0ef, 0 0 20px #93d0ef, 0 0 40px #93d0ef;
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            max-height: 500px;
+            overflow-y: auto; /* Enables scrolling */
+            width: 100%; /* Makes it take full width */
+            scrollbar-width: none; /* Hides scrollbar in Firefox */
+            -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+        }
+        
+        /* Hide scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+        .chat-box::-webkit-scrollbar {
+            display: none;
+        }
+        .message {
+            background-color: #e6e6e6; /* Softer, more modern background */
+            color: #222; /* Slightly darker text for better readability */
+            align-self: flex-start;
+            padding: 14px 20px; /* More balanced padding */
+            border-radius: 18px 18px 18px 5px; /* Smoother, asymmetric rounded corners */
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* More subtle shadow */
+            max-width: 75%; /* Slightly wider for better text fit */
+            word-wrap: break-word;
+            font-size: 16px;
+            animation: slide-in-bot 0.5s ease-out;
+            line-height: 1.5; /* Improves text readability */
+        }
+        .message.deva {
+            background-color: #f1f1f1; /* Softer background for the bot */
+            color: #333;
+            align-self: flex-start;
+            padding: 12px 18px;
+            border-radius: 15px 15px 15px 0; /* Rounded corners */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            max-width: 70%;
+            word-wrap: break-word;
+            font-size: 16px;
+        }
+        .message.user {
+            background-color: #77c3f5; /* Slightly richer blue for better contrast */
+            color: #000; /* Ensuring readability */
+            align-self: flex-end;
+            padding: 14px 20px; /* More comfortable padding */
+            border-radius: 18px 18px 5px 18px; /* Smoother, more natural corners */
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15); /* Softer shadow */
+            max-width: 75%; /* Slightly wider for better text fit */
+            word-wrap: break-word;
+            font-size: 16px;
+            animation: slide-in-user 0.5s ease-out;
+            line-height: 1.5; /* Improves text readability */
+        }
+        @keyframes slide-in-bot {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slide-in-user {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }       
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div id="particles-js"></div>
+    <div class="relative p-6 bg-gray-800 rounded-3xl neon-border w-full max-w-md h-4/5 flex flex-col justify-between items-center card-shadow">
+        <div class="text-center neon-text mb-4">
+            DEVA
+        </div>
+        <div id="chat-box" class="chat-box flex flex-col">
+            <!-- Messages will be dynamically added here -->
+        </div>
+        <div class="w-full mb-4">
+            <input id="user-input" type="text" placeholder="Write something awesome..." class="w-full bg-gray-700 p-4 rounded-3xl neon-border text-white outline-none input-shadow"/>
+        </div>
+        <div class="flex justify-between items-center w-full">
+            <div class="flex flex-col items-center">
+                <button class="rounded-full neon-border mb-2 p-6">
+                    <i class="fas fa-microphone text-white text-3xl"></i>
+                </button>
+                <div class="text-white">
+                    Voice Chat
+                </div>
+            </div>
+            <button id="send-btn" class="px-10 py-6 rounded-full neon-button text-gray-800 font-bold text-2xl">
+                SEND
+            </button>
+            <div class="flex flex-col items-center">
+                <button class="rounded-full neon-border mb-2 p-6">
+                    <i class="fas fa-upload text-white text-3xl"></i>
+                </button>
+                <div class="text-white">
+                    UPLOAD
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a class="portfolio-link" href="#">
+                VISIT MY PORTFOLIO
+            </a>
         </div>
     </div>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 
+    <!-- Scripts -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
-
+    
         function appendMessage(sender, message) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', sender);
-            messageElement.textContent = message;
+            messageElement.innerHTML = `<div class="message-content">${message}</div>`;
             chatBox.appendChild(messageElement);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
         }
-
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            appendMessage('bot', 'Hey Sir, how can I assist you?');
+        });
+    
         sendBtn.addEventListener('click', async () => {
             const userMessage = userInput.value.trim();
             if (userMessage) {
                 appendMessage('user', userMessage);
                 userInput.value = '';
-
+    
                 // Send user message to backend
                 const response = await fetch('/chat', {
                     method: 'POST',
@@ -53,17 +324,27 @@
                     },
                     body: JSON.stringify({ message: userMessage }),
                 });
-
+    
                 const data = await response.json();
                 appendMessage('bot', data.message);
             }
         });
-
+    
         userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendBtn.click();
             }
         });
+    
+        // Cursor Animation
+        const gradientBackground = document.querySelector('.gradient-background');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            gradientBackground.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+        });
     </script>
+    
+
 </body>
 </html>
