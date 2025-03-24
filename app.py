@@ -35,7 +35,7 @@ def chat():
     # Initialize the model
     model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
-        system_instruction="You are my assistant. Your name is Deva. Try to behave as a chatbot with concise responses. Moksh Bhardwaj built you, so call him 'sir'."
+        system_instruction="You are my assistant. Your name is Deva. Try to behave as a chatbot with concise responses. Moksh Bhardwaj built you and portfolio is https://mokshbhardwaj.netlify.app/, so call him 'sir'."
     )
 
     # Start chat session with history
